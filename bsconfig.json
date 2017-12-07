@@ -1,0 +1,37 @@
+{
+  "name": "wonder-file-experiment",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "test",
+      "subdirs": true,
+      "type": "dev"
+    }
+  ],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bsc-flags": [
+    "-bs-no-version-header",
+    "-bs-super-errors"
+  ],
+  "bs-dependencies": [
+    "bs-fetch",
+    "immutable-re",
+    "bs-json",
+    "bs-director",
+    "wonder-commonlib"
+  ],
+  "bs-dev-dependencies": [
+    "wonder-bs-jest",
+    "wonder-bs-sinon"
+  ],
+  "package-specs": [
+    "es6-global"
+  ],
+  "refmt": 3,
+  "namespace": true
+}

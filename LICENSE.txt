@@ -1,0 +1,12 @@
+
+'use strict';
+var class_tables = [
+    0,
+    0,
+    0
+];
+
+function importCss() {
+}
+
+importCss("./css/app.css");
