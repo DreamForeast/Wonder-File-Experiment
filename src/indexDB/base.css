@@ -1,6 +1,7 @@
 body {
     font: 12px "Helvetica Neue", "Helvetica", sans-serif;
     background: #ccc;
+    line-height: 30px;
 }
 
 h1 {

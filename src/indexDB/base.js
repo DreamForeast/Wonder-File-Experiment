@@ -4,7 +4,8 @@
         IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
         dbVersion = 1.0;
 
-    var fileArray = ["base.css", "timg.jpg"];
+    // var fileArray = ["base.css", "timg.jpg", "test.wd", "base.js"];
+    var fileArray = ["test.wd"];
 
     // Create/open database
     var request = indexedDB.open("elephantFiles", dbVersion),
@@ -14,7 +15,7 @@
             console.log("Creating objectStore")
             dataBase.createObjectStore("elephants");
         },
-        getFileByAjax = function (fileName) {
+        getFileByName = function (fileName) {
             var xhr = new XMLHttpRequest(),
                 blob;
 
@@ -42,7 +43,7 @@
             transaction = db.transaction(["elephants"], readWriteMode);
 
             // Put the blob into the dabase
-            var put = transaction.objectStore("elephants").put(blob, name);
+            transaction.objectStore("elephants").put(blob, name);
         };
 
     request.onerror = function (event) {
@@ -68,7 +69,7 @@
         }
 
         fileArray.forEach(function (fileItem) {
-            getFileByAjax(fileItem);
+            getFileByName(fileItem);
         });
 
         var readWriteMode = typeof IDBTransaction.READ_WRITE == "undefined" ? "readwrite" : IDBTransaction.READ_WRITE;
@@ -81,9 +82,21 @@
                 var binaryData = event.target.result;
                 console.log(`Got elephant! ${fileItem}`);
 
-                zip.file(fileItem, binaryData, { binary: true });
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var res = e.target.result;
+
+                    console.log(res);
+                    console.log(JSON.parse(res));
+                }
+
+                reader.readAsText(binaryData);
+
+                // zip.file(fileItem, binaryData, { binary: true });
             };
         });
+
 
         document.getElementById("zipBtn").onclick = function () {
             zip.generateAsync({ type: "blob" })
