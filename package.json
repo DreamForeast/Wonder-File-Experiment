@@ -26,6 +26,7 @@
   "dependencies": {
     "bs-glob": "reasonml-community/bs-glob",
     "bs-node": "buckletypes/bs-node",
+    "jszip": "^3.1.5",
     "wonder-commonlib": "^0.2.8"
   }
 }
