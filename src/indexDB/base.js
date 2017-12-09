@@ -78,13 +78,17 @@
 
         var promiseArray = fileArray.map(function (fileItem) {
             return new Promise(function (resolve, reject) {
-                transaction.objectStore("elephants").get(fileItem).onsuccess = function (event) {
+                var getFileFromIndexDB = transaction.objectStore("elephants").get(fileItem);
+                getFileFromIndexDB.onsuccess = function (event) {
                     var binaryData = event.target.result;
                     console.log(`Got elephant! ${fileItem}`);
 
                     zip.file(fileItem, binaryData, { binary: true });
 
                     resolve();
+                };
+                getFileFromIndexDB.onerror = function (event) {
+                    reject(`${fileItem} is get error`);
                 };
             });
         });
@@ -94,6 +98,8 @@
                 .then(function (content) {
                     saveAs(content, "example.zip");
                 });
+        }, function (err) {
+            console.log(err);
         });
 
         // fileArray.forEach(function (fileItem) {
